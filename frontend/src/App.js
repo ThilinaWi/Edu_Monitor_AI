@@ -683,36 +683,44 @@ function App() {
             </div>
           )}
           
-          {aiPowered && (
-            <div style={{
-              background:"linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-              padding:"16px", 
-              borderRadius:"12px", 
-              marginBottom:"25px",
-              textAlign:"center",
-              boxShadow:"0 4px 12px rgba(0,0,0,0.1)"
-            }}>
-              <span style={{
-                color:"#2c3e50", 
-                fontWeight:"700", 
-                fontSize:"16px",
-                display:"flex",
-                alignItems:"center",
-                justifyContent:"center",
-                gap:"8px"
-              }}>
-                <span style={{fontSize:"24px"}}>AI</span>
-                AI-Powered Personalized Analysis
-              </span>
-            </div>
-          )}
-
+          {/* Separate Recommendations Section */}
           <div style={{
-            backgroundColor:"#f8f9fa",
-            padding:"30px", 
+            backgroundColor:"white",
             borderRadius:"16px",
-            boxShadow:"0 4px 12px rgba(0,0,0,0.05)"
+            padding:"35px",
+            marginTop:"30px",
+            boxShadow:"0 8px 20px rgba(0,0,0,0.1)",
+            border:"2px solid #667eea"
           }}>
+            <div style={{
+              display:"flex",
+              alignItems:"center",
+              justifyContent:"space-between",
+              marginBottom:"25px",
+              paddingBottom:"15px",
+              borderBottom:"2px solid #f0f0f0"
+            }}>
+              <h3 style={{
+                margin:0,
+                fontSize:"24px",
+                fontWeight:"800",
+                color:"#2c3e50"
+              }}>
+                Personalized Recommendations
+              </h3>
+              {aiPowered && (
+                <div style={{
+                  background:"linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+                  padding:"8px 16px",
+                  borderRadius:"20px",
+                  fontSize:"13px",
+                  fontWeight:"700",
+                  color:"#2c3e50"
+                }}>
+                  AI Powered
+                </div>
+              )}
+            </div>
             <h4 style={{
               color:"#2c3e50", 
               marginTop:0,
@@ -723,7 +731,7 @@ function App() {
               alignItems:"center",
               gap:"10px"
             }}>
-              Your Personalized Recommendations
+              Suggestions for You:
             </h4>
             <ul style={{
               lineHeight:"2.2", 

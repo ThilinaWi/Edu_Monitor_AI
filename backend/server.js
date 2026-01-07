@@ -72,7 +72,7 @@ app.post("/api/predict", async (req, res) => {
       ...mlResponse.data,
       predictionId: prediction._id,
       earlyWarning: earlyWarning.isHighRisk ? {
-        message: `EARLY WARNING: ${consecutive} consecutive high-risk predictions detected`,
+        message: `EARLY WARNING: ${earlyWarning.consecutiveHighRisk} consecutive high-risk predictions detected`,
         consecutiveCount: earlyWarning.consecutiveHighRisk,
         recommendation: "Immediate counselor intervention recommended"
       } : null
