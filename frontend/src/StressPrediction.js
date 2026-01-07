@@ -168,16 +168,16 @@ function StressPrediction() {
         </div>
 
         <nav style={{ flex: 1 }}>
-          <MenuItem icon="🏠" text="Home" />
-          <MenuItem icon="📊" text="Attendance Analytics" />
-          <MenuItem icon="📚" text="Learning Paths" />
-          <MenuItem icon="⚠️" text="Risk Predictor" />
-          <MenuItem icon="🧠" text="Stress Prediction" active />
+          <MenuItem icon="" text="Home" />
+          <MenuItem icon="" text="Attendance Analytics" />
+          <MenuItem icon="" text="Learning Paths" />
+          <MenuItem icon="" text="Risk Predictor" />
+          <MenuItem icon="" text="Stress Prediction" active />
         </nav>
 
         <div style={{ padding: "0 16px" }}>
-          <MenuItem icon="⚙️" text="Settings" />
-          <MenuItem icon="🚪" text="Sign Out" />
+          <MenuItem icon="" text="Settings" />
+          <MenuItem icon="" text="Sign Out" />
         </div>
       </div>
 
@@ -292,7 +292,7 @@ function StressPrediction() {
                   alignItems: "center",
                   gap: "6px"
                 }}>
-                  <span style={{ color: "#14b8a6" }}>⚡</span> ACADEMIC
+                  ACADEMIC
                 </div>
                 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
@@ -340,7 +340,7 @@ function StressPrediction() {
                   alignItems: "center",
                   gap: "6px"
                 }}>
-                  <span style={{ color: "#14b8a6" }}>⚡</span> LIFESTYLE
+                  LIFESTYLE
                 </div>
                 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
@@ -415,7 +415,7 @@ function StressPrediction() {
                   alignItems: "center",
                   gap: "6px"
                 }}>
-                  <span style={{ color: "#14b8a6" }}>⚡</span> EXTERNAL
+                  EXTERNAL
                 </div>
                 
                 <div style={{ marginBottom: "16px" }}>
@@ -495,7 +495,7 @@ function StressPrediction() {
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "20px"
-              }}>✨</div>
+              }}></div>
               <div>
                 <div style={{ fontSize: "18px", fontWeight: "700", color: "#1e293b" }}>
                   AI Academic Coach
@@ -524,17 +524,14 @@ function StressPrediction() {
                 </div>
               ) : (
                 recommendations.map((rec, index) => {
-                  const icons = ["🌙", "📋", "📚", "⚡"];
+                  const icons = ["", "", "", ""];
                   const colors = ["#f59e0b", "#10b981", "#8b5cf6", "#14b8a6"];
                   return (
                     <RecommendationCard
                       key={index}
                       icon={icons[index % icons.length]}
                       title={`Recommendation ${index + 1}`}
-                      priority="Medium"
-                      priorityColor={colors[index % colors.length]}
                       description={rec}
-                      benefit="AI-powered insight"
                       borderColor={colors[index % colors.length]}
                     />
                   );
@@ -624,7 +621,7 @@ function StressPrediction() {
                   alignItems: "center",
                   gap: "8px"
                 }}>
-                  📈 7-Day Trend
+                  7-Day Trend
                 </div>
                 
                 <svg width="100%" height="200" style={{ marginBottom: "8px" }}>
@@ -745,7 +742,7 @@ function FactorBar({ label, percent, color }) {
   );
 }
 
-function RecommendationCard({ icon, title, priority, priorityColor, description, benefit, borderColor }) {
+function RecommendationCard({ icon, title, description, borderColor }) {
   return (
     <div style={{
       padding: "16px",
@@ -753,34 +750,12 @@ function RecommendationCard({ icon, title, priority, priorityColor, description,
       borderLeft: `4px solid ${borderColor}`,
       borderRadius: "8px"
     }}>
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "8px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <span style={{ fontSize: "18px" }}>{icon}</span>
-          <span style={{ fontSize: "14px", fontWeight: "600", color: "#1e293b" }}>{title}</span>
-        </div>
-        <div style={{
-          padding: "2px 8px",
-          background: `${priorityColor}20`,
-          color: priorityColor,
-          borderRadius: "4px",
-          fontSize: "11px",
-          fontWeight: "600"
-        }}>
-          {priority}
-        </div>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+        <span style={{ fontSize: "18px" }}>{icon}</span>
+        <span style={{ fontSize: "14px", fontWeight: "600", color: "#1e293b" }}>{title}</span>
       </div>
-      <div style={{ fontSize: "12px", color: "#64748b", marginBottom: "8px", lineHeight: "1.5" }}>
+      <div style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.5" }}>
         {description}
-      </div>
-      <div style={{
-        fontSize: "11px",
-        color: "#10b981",
-        fontWeight: "600",
-        display: "flex",
-        alignItems: "center",
-        gap: "4px"
-      }}>
-        💡 {benefit}
       </div>
     </div>
   );
