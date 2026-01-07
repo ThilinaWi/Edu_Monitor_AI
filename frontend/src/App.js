@@ -1,7 +1,7 @@
-import WellnessDashboard from './WellnessDashboard';
+import StressPrediction from './StressPrediction';
 
 function App() {
-  return <WellnessDashboard />;
+  return <StressPrediction />;
 }
 
 export default App;
