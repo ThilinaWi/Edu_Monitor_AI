@@ -4,6 +4,8 @@ import axios from "axios";
 function App() {
   const [form, setForm] = useState({});
   const [result, setResult] = useState("");
+  const [recommendations, setRecommendations] = useState([]);
+  const [confidence, setConfidence] = useState(null);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,10 +25,10 @@ function App() {
     };
 
     const res = await axios.post("http://localhost:5000/api/predict", payload);
-    setResult(res.data.stress_level);
+    setResult(res.data.stress_level || "");
+    setRecommendations(res.data.recommendations || (res.data.recommendation ? [res.data.recommendation] : []));
+    setConfidence(typeof res.data.confidence !== 'undefined' ? res.data.confidence : null);
   };
-
-
 
   const displayLabel = () => {
     if (result === "Good") return "Low Risk";
@@ -54,10 +56,25 @@ function App() {
       ))}
 
       <button onClick={submit}>Predict Stress Level</button>
+      {result && <h3>Stress Level: {displayLabel()}</h3>}
 
-      <h3>Stress Level: {displayLabel()}</h3>
-
-      {/* Recommendations removed from frontend; backend will provide guidance */}
+      {recommendations.length > 0 && (
+        <div style={{ marginTop: "16px" }}>
+          <h3>Recommendations</h3>
+          <ol>
+            {recommendations.slice(0, 3).map((item, i) => (
+              <li key={item}>
+                {item}
+                {i === 0 && confidence !== null && (
+                  <span style={{ marginLeft: 8, color: '#555', fontSize: '0.9em' }}>
+                    (Confidence: {Math.round(confidence * 100)}%)
+                  </span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
     </div>
   );
 }
