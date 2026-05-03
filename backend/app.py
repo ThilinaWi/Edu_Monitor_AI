@@ -8,11 +8,12 @@ from pymongo.errors import PyMongoError
 from dotenv import load_dotenv
 
 HERE = os.path.dirname(__file__)
-load_dotenv(os.path.join(HERE, ".env"))
+load_dotenv(os.path.join(HERE, ".env"), override=True)
 
 MODEL_PATH = os.path.normpath(os.path.join(HERE, "stress_level_model_final.pkl"))
 MONGODB_URI = os.getenv("MONGODB_URI", "")
-MONGODB_DB = os.getenv("MONGODB_DB", "edu_monitor_ai")
+# Force the target database requested by user.
+MONGODB_DB = "stress_predictions"
 MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "predictions")
 PORT = int(os.getenv("PORT", "5000"))
 
@@ -97,7 +98,12 @@ def predict():
         except PyMongoError as e:
             save_error = str(e)
 
-    response = {"stress_level": stress_level, "saved": saved}
+    response = {
+        "stress_level": stress_level,
+        "saved": saved,
+        "db": MONGODB_DB,
+        "collection": MONGODB_COLLECTION,
+    }
     if save_error:
         response["save_error"] = "Prediction generated, but failed to save to MongoDB"
 
