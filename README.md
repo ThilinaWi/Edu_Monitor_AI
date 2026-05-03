@@ -23,7 +23,7 @@ Edu_Monitor_AI/
 - **Python 3.8+** (with venv or conda activated)
 - **Node.js 14+** and npm
 - **Dependencies installed:**
-  - Backend: Flask, joblib, numpy, scikit-learn, requests
+  - Backend: Flask, joblib, numpy, scikit-learn, pymongo, python-dotenv
   - Frontend: React, axios
 
 ## Quick Start
@@ -46,8 +46,20 @@ source .venv/bin/activate
 ### 2. Install backend dependencies
 
 ```bash
-pip install flask joblib numpy scikit-learn requests
+cd backend
+pip install -r requirements.txt
+cd ..
 ```
+
+### 2.1 Configure MongoDB (optional but recommended)
+
+```bash
+cd backend
+cp .env.example .env
+cd ..
+```
+
+Set `MONGODB_URI` in `backend/.env`.
 
 ### 3. Install frontend dependencies
 
@@ -117,11 +129,17 @@ Predicts student stress level based on input features.
 **Response:**
 ```json
 {
-  "stress_level": "Good"
+  "stress_level": "Good",
+  "saved": true
 }
 ```
 
 Possible values: `Good` (Low Risk), `Bad` (Moderate Risk), `Awful` (High Risk)
+
+When MongoDB is configured, each request is stored in the `predictions` collection with:
+- `created_at`
+- `input` (all submitted fields)
+- `prediction` (`stress_level`, `class_id`)
 
 ## Testing
 
