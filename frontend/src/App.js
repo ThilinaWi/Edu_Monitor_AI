@@ -4,7 +4,6 @@ import axios from "axios";
 function App() {
   const [form, setForm] = useState({});
   const [result, setResult] = useState("");
-  const [tips, setTips] = useState([]);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,67 +24,8 @@ function App() {
 
     const res = await axios.post("http://localhost:5000/api/predict", payload);
     setResult(res.data.stress_level);
-    generateTips(payload, res.data.stress_level);
   };
 
-const generateTips = (d, level) => {
-  let t = [];
-
-  // UNIVERSAL ACADEMIC ADVICE
-  if (d.term_mark_avg < 50)
-    t.push("Your academic performance is low. Create a weekly revision plan and consult subject teachers.");
-
-  if (d.prev_term_mark_avg - d.term_mark_avg > 10)
-    t.push("Your performance has dropped significantly compared to last term. Identify weak subjects early.");
-
-  // SLEEP ANALYSIS
-  if (d.sleep_hours < 5)
-    t.push("You are severely sleep deprived. Target at least 7–8 hours of sleep daily.");
-
-  else if (d.sleep_hours < 6.5)
-    t.push("Your sleep duration is below healthy range. Try going to bed 1 hour earlier.");
-
-  // ATTENDANCE & COMMITMENT
-  if (d.attendance < 60)
-    t.push("Your attendance is critically low. Meet your class teacher and create a recovery plan.");
-
-  else if (d.attendance < 75)
-    t.push("Improve your attendance to avoid academic penalties.");
-
-  // SOCIAL MEDIA & DISTRACTION
-  if (d.social_media >= 3)
-    t.push("High social media usage detected. Limit screen time during study hours.");
-
-  // TUITION LOAD
-  if (d.tuition_hours_per_week > 12)
-    t.push("Too many tuition hours may cause burnout. Review and prioritize essential classes only.");
-
-  // FINANCIAL STRESS
-  if (d.financial_status === 1)
-    t.push("Financial pressure may be affecting your studies. Seek scholarship or counseling support.");
-
-  // TRAVEL FATIGUE
-  if (d.travel_time >= 4)
-    t.push("Long travel hours detected. Try optimizing your schedule to reduce fatigue.");
-
-  // (disaster_impact removed from UI) external-impact checks handled server-side
-
-  // FINAL RISK-LEVEL BASED GUIDANCE
-  if (level === "Awful") {
-    t.push("⚠ Immediate academic intervention recommended.");
-    t.push("Book a meeting with school counselor this week.");
-  }
-
-  if (level === "Bad") {
-    t.push("Your stress level is rising. Implement these changes within 7 days.");
-  }
-
-  if (level === "Good") {
-    t.push("You are managing well. Continue your balanced academic routine.");
-  }
-
-  setTips(t);
-};
 
 
   const displayLabel = () => {
@@ -102,7 +42,7 @@ const generateTips = (d, level) => {
       {[
         "term_mark_avg","prev_term_mark_avg","daily_study","prefer_study",
         "travel_time","financial_status","social_media","sleep_hours",
-        "attendance","tuition_hours_per_week","disaster_impact"
+        "attendance","tuition_hours_per_week"
       ].map(f => (
         <input
           key={f}
@@ -117,9 +57,7 @@ const generateTips = (d, level) => {
 
       <h3>Stress Level: {displayLabel()}</h3>
 
-      <ul>
-        {tips.map((tip, i) => <li key={i}>{tip}</li>)}
-      </ul>
+      {/* Recommendations removed from frontend; backend will provide guidance */}
     </div>
   );
 }
