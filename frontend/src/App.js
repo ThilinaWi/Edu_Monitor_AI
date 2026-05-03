@@ -20,8 +20,7 @@ function App() {
       social_media: Number(form.social_media),
       sleep_hours: Number(form.sleep_hours),
       attendance: Number(form.attendance),
-      tuition_hours_per_week: Number(form.tuition_hours_per_week),
-      disaster_impact: Number(form.disaster_impact)
+      tuition_hours_per_week: Number(form.tuition_hours_per_week)
     };
 
     const res = await axios.post("http://localhost:5000/api/predict", payload);
@@ -69,9 +68,7 @@ const generateTips = (d, level) => {
   if (d.travel_time >= 4)
     t.push("Long travel hours detected. Try optimizing your schedule to reduce fatigue.");
 
-  // DISASTER / EXTERNAL IMPACT
-  if (d.disaster_impact >= 2)
-    t.push("External disturbances detected. Psychological counseling may help you regain focus.");
+  // (disaster_impact removed from UI) external-impact checks handled server-side
 
   // FINAL RISK-LEVEL BASED GUIDANCE
   if (level === "Awful") {

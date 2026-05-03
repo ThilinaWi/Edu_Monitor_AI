@@ -20,7 +20,7 @@ def predict():
         data["sleep_hours"],
         data["attendance"],
         data["tuition_hours_per_week"],
-        data["disaster_impact"]
+        data.get("disaster_impact", 0)
     ]])
 
     pred = model.predict(features)[0]
